@@ -9,7 +9,7 @@ const {
 const router = express.Router();
 
 // Routes
-router.post('/create', createRide);
+router.post('/', createRide);
 router.get('/:id', getSingleRide);
 router.delete('/:id', deleteRide);
 router.put('/:id', updateRide);

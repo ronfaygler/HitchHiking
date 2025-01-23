@@ -1,43 +1,32 @@
 const express = require('express');
-const Review = require('../models/reviewModel'); // Assuming the review model file is named 'reviewModel.js'
+
+const {
+    createReview,
+    getAllDriverReviews,
+    getAllPassengerReviews,
+    getSingleReview,
+    updateReview,
+    deleteReview,
+} = require("../controllers/reviewController");
 
 const router = express.Router();
 
-// GET all reviews
-router.get('/', (req, res) => {
-    res.json({ mssg: 'GET all reviews' });
-});
+// Create a review
+router.post("/", createReview)
 
-// GET a single review by ID
-router.get('/:id', (req, res) => {
-    res.json({ mssg: 'GET a single review' });
-});
+// Get all reviews for a driver
+router.get("/driver/:driverID", getAllDriverReviews)
 
-// POST a new review
-router.post('/', async (req, res) => {
-    const { reviewer, reviewee, rating, content } = req.body;
-    
-    try {
-        const review = await Review.create({
-            reviewer,
-            reviewee,
-            rating,
-            content
-        });
-        res.status(201).json(review);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-});
+// Get all reviews for a passenger
+router.get('/passenger/:passengerID', getAllPassengerReviews);
 
-// DELETE a review by ID
-router.delete('/:id', (req, res) => {
-    res.json({ mssg: 'DELETE a review' });
-});
+// Get a single review by ID
+router.get('/:id', getSingleReview);
 
-// UPDATE a review by ID
-router.patch('/:id', (req, res) => {
-    res.json({ mssg: 'UPDATE a review' });
-});
+// Update a review
+router.put('/:id', updateReview);
+
+// Delete a review
+router.delete('/:id', deleteReview);
 
 module.exports = router;
