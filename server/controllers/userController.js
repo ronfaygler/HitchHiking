@@ -3,23 +3,6 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 
-// get a single user
-const getSingleUser = async (req, res) => {
-    const { id } = req.params;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ mssg: "The ID is invalid" });
-    }
-    try {
-        const user = await User.findById(id);
-        if (!user){
-            return res.status(400).json({ mssg: "User not found" });
-        }
-        return res.status(200).json({ user });
-    } catch (err) {
-        return res.status(500).json({ mssg: "An error occurred while fetching the user", error: err.message})
-    }
-};
-
 // create a new user
 const createUser = async (req, res) => {
     const { 
@@ -64,6 +47,23 @@ const createUser = async (req, res) => {
                 res.status(400).json({ error: error.message });
         }
     }   
+};
+
+// get a single user
+const getSingleUser = async (req, res) => {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ mssg: "The ID is invalid" });
+    }
+    try {
+        const user = await User.findById(id);
+        if (!user){
+            return res.status(400).json({ mssg: "User not found" });
+        }
+        return res.status(200).json({ user });
+    } catch (err) {
+        return res.status(500).json({ mssg: "An error occurred while fetching the user", error: err.message})
+    }
 };
 
 // // sign in with email and password

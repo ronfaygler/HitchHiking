@@ -27,24 +27,17 @@ const rideSchema = new Schema({
         ref: 'Driver',
         required: true
     },
-    passengers: {
-        type: [Schema.Types.ObjectId],
-        ref: 'Passenger'
+    date: {
+        type: Date, 
+        required: true
     },
     startTime: {
         type: Date,  // Type set to Date for timestamp of end
         required: true
     },
-    endTime: {
-        type: Date  // Type set to Date for timestamp of end
-    },
-    date: {
-        type: Date, 
+    price: {
+        type: Number,
         required: true
-    },
-    pickUpLocations: {
-        type: [Schema.Types.ObjectId],
-        ref: 'Address', // optional array of Address objects 
     },
     passengersNumber: {
         type: Number,
@@ -62,14 +55,21 @@ const rideSchema = new Schema({
         type: String, // no, every week, every day
         required: true
     },
+    endTime: {
+        type: Date  // Type set to Date for timestamp of end
+    },
+    pickUpLocations: {
+        type: [Schema.Types.ObjectId],
+        ref: 'Address', // optional array of Address objects 
+    },
     stops: {
         type: [Schema.Types.ObjectId],
         ref: 'Address' // optional array of Address objects 
     },
-    price: {
-        type: Number,
-        required: true
-    }
+    passengers: {
+        type: [Schema.Types.ObjectId],
+        ref: 'Passenger'
+    },
 
 }, { timestamps: true })
 
